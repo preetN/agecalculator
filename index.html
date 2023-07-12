@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Frontend Mentor | Age calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+      }
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      .input_fields {
+        display: flex;
+        gap: 10px;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        background-color: hsl(0, 0%, 86%);
+      }
+      input {
+        border: 1px solid hsl(0, 0%, 86%);
+        height: 30px;
+        width: 60px;
+        border-radius: 6px;
+        font-weight: 700;
+        padding: 5px 15px;
+      }
+      label {
+        font-size: 10px;
+        color: hsl(0, 1%, 44%);
+        font-weight: 400;
+        letter-spacing: 2px;
+      }
+      .break_line {
+        position: relative;
+      }
+      svg {
+        position: absolute;
+        border-radius: 30px;
+        height: 30px;
+        width: 30px;
+        padding: 10px;
+        background-color: blueviolet;
+        right: 0px;
+        cursor: pointer;
+      }
+      .calender {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px 10px 70px 10px;
+      }
+      .display_fields {
+        font-weight: 800;
+        font-style: italic;
+        font-size: 50px;
+        line-height: 55px;
+      }
+
+      .numbers {
+        color: hsl(259, 100%, 65%);
+      }
+      #year_error {
+        color: red;
+        font-size: 8px;
+        font-weight: 100;
+      }
+
+      hr {
+        height: 2px;
+        background-color: hsl(0, 0%, 86%);
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="calender">
+        <div class="input_fields">
+          <div class="day_field">
+            <label id="day_label" for="day">DAY</label><br />
+            <input type="number" id="day" min="1" max="31" placeholder="DD" />
+            <p id="day_error"></p>
+          </div>
+          <div class="month_field">
+            <label id="month_label" for="month">MONTH</label><br />
+            <input type="number" id="month" min="1" max="12" placeholder="MM" />
+            <p id="month_error"></p>
+          </div>
+          <div class="year_field">
+            <label id="year_label" for="year">YEAR</label><br />
+            <input type="number" id="year" min="1900" placeholder="YYYY" />
+            <p id="year_error"></p>
+          </div>
+        </div>
+        <div class="break_line">
+          <svg
+            onclick="displayage()"
+            xmlns="http://www.w3.org/2000/svg"
+            width="46"
+            height="44"
+            viewBox="0 0 46 44"
+          >
+            <g fill="none" stroke="#FFF" stroke-width="2">
+              <path
+                d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44"
+              />
+            </g>
+          </svg>
+          <hr />
+        </div>
+
+        <div class="display_fields">
+          <span class="numbers" id="year_num">--</span>
+          <span>years</span>
+          <br />
+          <span class="numbers" id="month_num">--</span>
+          <span>months</span>
+          <br />
+          <span class="numbers" id="day_num">--</span>
+          <span>days</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Antarpreet kaur</a>.
+    </div>
+    <script>
+      function displayage() {
+        var d = document.getElementById("day").value;
+        var m = document.getElementById("month").value;
+        var y = document.getElementById("year").value;
+
+        var date = new Date();
+        var t_d = date.getDay();
+        var t_m = date.getMonth();
+        var t_y = date.getFullYear();
+        console.log(m);
+        document.getElementById("day_num").innerHTML = d;
+        if (y > t_y) {
+          document.getElementById("year_error").innerHTML =
+            "Must be in the past";
+          document.getElementById("year").style.border = "1px solid red";
+          document.getElementById("year_label").style.color = "red";
+        } else if (t_m === null) {
+          document.getElementById("month_error").innerHTML =
+            "Must be a valid month";
+          document.getElementById("month").style.border = "1px solid red";
+          document.getElementById("month_label").style.color = "red";
+        }
+      }
+    </script>
+  </body>
+</html>
