@@ -7,8 +7,8 @@ function displayage() {
   var y = yearelm.value;
   var date = new Date();
   var date_year = date.getFullYear().toString();
-  var date_month = date.getMonth() + 1;
-  var date_date = date.getDate();
+  var date_month = (date.getMonth() + 1).toString();
+  var date_date = date.getDate().toString();
   resetError(
     dateelm,
     document.getElementById("day_label"),
@@ -39,11 +39,26 @@ function displayage() {
     errormessage1(document.getElementById("year_error"));
     errordisplay(dateelm, document.getElementById("day_label"));
     document.getElementById("day_error").innerHTML = "Must be a valid date";
+  } else if (!checkMonthdays(m, d)) {
+    errordisplay(dateelm, document.getElementById("day_label"));
+    document.getElementById("day_error").innerHTML = "Must be a valid date";
   } else {
     if (Ispast(y, date_year) === "past") {
       display(date_date, date_month, date_year, d, m, y);
     } else if (Ispast(y, date_year) === "current") {
-      alert("hun likh code");
+      if (Ispast(m, date_month) === "past") {
+        display(date_date, date_month, date_year, d, m, y);
+      } else if (Ispast(m, date_month) === "current") {
+        if (Ispast(d, date_date) === "past") {
+          display(date_date, date_month, date_year, d, m, y);
+        } else {
+          errordisplay(dateelm, document.getElementById("day_label"));
+          errormessage1(document.getElementById("day_error"));
+        }
+      } else {
+        errordisplay(monthelm, document.getElementById("month_label"));
+        errormessage1(document.getElementById("month_error"));
+      }
     } else {
       errordisplay(yearelm, document.getElementById("year_label"));
       errormessage1(document.getElementById("year_error"));
