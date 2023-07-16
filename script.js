@@ -42,6 +42,8 @@ function displayage() {
   } else if (!checkMonthdays(m, d)) {
     errordisplay(dateelm, document.getElementById("day_label"));
     document.getElementById("day_error").innerHTML = "Must be a valid date";
+    errordisplay(monthelm, document.getElementById("month_label"));
+    errordisplay(yearelm, document.getElementById("year_label"));
   } else {
     if (Ispast(y, date_year) === "past") {
       display(date_date, date_month, date_year, d, m, y);
@@ -90,14 +92,15 @@ const validMonth = (month) => {
 };
 
 const checkMonthdays = (month, date) => {
-  var month_30 = ["2", "4", "6", "9", "11"];
-  if (month_30.includes(month) && date <= "30") {
-    return true;
-  } else if (!month_30.includes(month) && date <= "31") {
-    return true;
-  } else {
+  var month_30 = ["1", "3", "5", "7", "8", "10", "12"];
+  console.log(month + "/" + date);
+  if (date === "31") {
+    if (month_30.includes(month)) {
+      return true;
+    }
     return false;
   }
+  return true;
 };
 const display = (date_date, date_month, date_year, d, m, y) => {
   const arr = [2, 4, 6, 9, 11];
@@ -120,4 +123,5 @@ const display = (date_date, date_month, date_year, d, m, y) => {
   document.getElementById("day_num").innerHTML = d_num;
   document.getElementById("month_num").innerHTML = m_num;
   document.getElementById("year_num").innerHTML = y_num;
+  console.log(d, m, y);
 };
